@@ -48,7 +48,7 @@ make; \
 ln -s /home/bedtools2/bin/bedtools /opt/bin/
 
 # Install BLAT
-RUN wget -P /home/bin/ http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64.v287/blat/blat; \
+RUN wget -P /opt/bin/ http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64.v287/blat/blat; \
 chmod +x /opt/bin/blat
 
 # Install ericscript
