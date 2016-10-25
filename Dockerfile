@@ -32,20 +32,20 @@ R CMD INSTALL /tmp/ada_2.0-3.tar.gz
 RUN git clone https://github.com/lh3/bwa.git; \
 cd bwa; \
 make; \
-ln -s /home/bwa/bwa /opt/bin/
+ln -s /opt/bwa/bwa /opt/bin/
 
 # Install seqtk
 RUN git clone https://github.com/lh3/seqtk.git; \
 cd seqtk; \
 make; \
-ln -s /home/seqtk/seqtk /opt/bin/
+ln -s /opt/seqtk/seqtk /opt/bin/
 
 # Install bedtools
 RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.26.0/bedtools-2.26.0.tar.gz; \
 tar xvfz bedtools-2.26.0.tar.gz; \
 cd bedtools2; \
 make; \
-ln -s /home/bedtools2/bin/bedtools /opt/bin/
+ln -s /opt/bedtools2/bin/bedtools /opt/bin/
 
 # Install BLAT
 RUN wget -P /opt/bin/ http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64.v287/blat/blat; \
