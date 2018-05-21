@@ -57,13 +57,15 @@ $man and pod2usage (-verbose=>2, -exitval=>1, -output=>\*STDOUT);
 
 my $sysmsg;
 my $sysflag=0;
-$sysmsg = qx/samtools 2>&1/ || '';		
-if ($sysmsg !~ m/bamshuf/) {
-	print STDERR "[EricScript] Error: SAMtools >= 0.1.19 not found! Please install and add it to your PATH.\n";
+$sysmsg = qx/samtools 2>&1/ || '';	
+# NOTE: =~ operator in perl searches for any match between the output
+# of the sysmsg command with the provided string		
+if ($sysmsg !~ m/htslib/) {
+	print STDERR "[EricScript] Error: SAMtools >= 1.0 not found! Please install and add it to your PATH.\n";
 	$sysflag=1;
 }
-if ($sysmsg =~ m/htslib/) {
-    print STDERR "[EricScript] Error: SAMtools >= 1.0 detected! EricScript is not yet compatible with it. Please use samtools 0.1.19 to run EricScript.\n";
+if ($sysmsg =~ m/bamshuf/) {
+    print STDERR "[EricScript] Error: SAMtools < 0.1.19 detected! EricScript is no longer compatible with it. Please use samtools 1.0 or greater to run EricScript.\n";
     $sysflag=1;
 }
 $sysmsg = qx/bwa 2>&1/ || '';		
