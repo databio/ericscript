@@ -47,7 +47,7 @@ exone.tmp2 <- exone.tmp[seq(2, dim(DataMatrix)[1]*2, by = 2)]
 ensgenename1 <- unlist(strsplit(exone.tmp1, "_"))[seq(1, dim(DataMatrix)[1]*2, by = 2)]
 ensgenename2 <- unlist(strsplit(exone.tmp2, "_"))[seq(1, dim(DataMatrix)[1]*2, by = 2)]
 ix.idd <- which(DataMatrix[,1] %in% info.id.and.homology[,1])
-DataMatrixF <- DataMatrix[ix.idd , , drop=FALSE]
+DataMatrixF <- DataMatrix[ix.idd ,]
 homology <- info.id.and.homology[,2]
 flag.dup.a <- info.id.and.homology[,3]
 flag.dup.b <- info.id.and.homology[,4]

@@ -5,7 +5,6 @@ use strict;
 use LWP::UserAgent;
 
 my $ensversion = $ARGV[1];
-#print $ARGV[0];
 
 open (FH,$ARGV[0]) || die ("\nUsage: perl webExample.pl Query.xml\n\n");
 
@@ -63,8 +62,6 @@ my $request = HTTP::Request->new("POST",$path,HTTP::Headers->new(),'query='.$xml
 my $ua = LWP::UserAgent->new;
 my $response;
 
-print $ua;
-print $request;
 $ua->request($request, 
 	     sub{   
 		 my($data, $response) = @_;
