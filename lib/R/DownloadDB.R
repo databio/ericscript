@@ -1,22 +1,15 @@
 vars.tmp <- commandArgs()
-#cat("\nvars.tmp: ", vars.tmp, "\n", sep="")
 vars <- vars.tmp[length(vars.tmp)]
-#cat("\nvars: ", vars, "\n", sep="")
 split.vars <- unlist(strsplit(vars, ","))
-#cat("\nsplit.vars: ", split.vars, "\n", sep="")
 ericscriptfolder <- split.vars [1]
-#cat("\nsplit.vars [1]: ", ericscriptfolder, "\n", sep="")
 user.refid <- split.vars [2]
-#cat("\nsplit.vars [2]: ", user.refid, "\n", sep="")
 tmpfolder <- split.vars [3]
-#cat("\nsplit.vars [3]: ", tmpfolder, "\n", sep="")
 ensversion <- as.numeric(split.vars [4])
 
 ###############################################################################
 
 load(file.path(ericscriptfolder, "lib", "data", "_resources", "RefID.RData"))
 ix.refid <- which(refid == user.refid)
-#cat("\nThe provided refid is: ", ix.refid, "\n", sep="")
 if (length(ix.refid) == 0) {
     cat("\n[EricScript] Error: No data available for genome ", user.refid, 
         ". Run ericscript.pl --printdb to view the available genomes.\n", 
@@ -56,15 +49,15 @@ unlink(tmpfil)
 #cat("\n", myrefid.xml, "\n")
 
 ###############################################################################
-## genepos file
+####                             genepos file                              ####
 ###############################################################################
 
 fileout <- file.path(tmpfolder, "genepos.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header = \"",
-    "0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n", 
-    file = fileout, append = T)
+    "0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
           sep = ""), file = fileout, sep = "\n", append = T)
@@ -75,7 +68,7 @@ cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
 
 if (myrefid == "homo_sapiens") {
     cat("\t\t<Filter name = \"biotype\" value = \"processed_transcript,",
-        "protein_coding\"/>\n", file = fileout, append = T)
+        "protein_coding\"/>\n", file = fileout, sep="", append = T)
     cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", file = fileout,
         sep = "\n", append = T)
 } else {
@@ -94,26 +87,26 @@ cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
 
 ###############################################################################
-## geneinfo file
+####                             geneinfo file                             ####
 ###############################################################################
 
 fileout <- file.path(tmpfolder, "geneinfo.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header = ",
-    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n",
-    file = fileout, append = T)
+    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
           sep = ""), file = fileout, sep = "\n", append = T)
 # cat("\t\t<Filter name = \"status\" value = \"KNOWN\"/>", file = fileout,
     # sep = "\n", append = T)
-# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", file = fileout,
-    # sep = "\n", append = T)
+# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", 
+    # file = fileout, sep = "\n", append = T)
 if (myrefid == "homo_sapiens") {
     cat("\t\t<Filter name = \"biotype\" value = \"",
         "processed_transcript,protein_coding\"/>\n", 
-        file = fileout, append = T)
+        file = fileout, sep="", append = T)
     cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", file = fileout, 
         sep = "\n", append = T)
 } else {
@@ -137,25 +130,25 @@ cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
 
 ###############################################################################
-## exonstartend file
+####                          exonstartend file                            ####
 ###############################################################################
 
 fileout <- file.path(tmpfolder, "exonstartend.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header =",
-    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n",
-    file = fileout, append = T)
+    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >", 
           sep = ""), file = fileout, sep = "\n", append = T)
 # cat("\t\t<Filter name = \"status\" value = \"KNOWN\"/>", 
     # file = fileout, sep = "\n", append = T)
-# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", file = fileout,
-    # sep = "\n", append = T)
+# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", 
+    # file = fileout, sep = "\n", append = T)
 if (myrefid == "homo_sapiens") {
     cat("\t\t<Filter name = \"biotype\" value = \"processed_transcript,",
-        "protein_coding\"/>\n", file = fileout, append = T)
+        "protein_coding\"/>\n", file = fileout, sep="", append = T)
     cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", file = fileout,
         sep = "\n", append = T)
 } else {
@@ -176,25 +169,25 @@ cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
 
 ###############################################################################
-## strand file
+####                              strand file                              ####
 ###############################################################################
 
 fileout <- file.path(tmpfolder, "strand.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header = ",
-    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n",
-    file = fileout, append = T)
+    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >", 
           sep = ""), file = fileout, sep = "\n", append = T)
 # cat("\t\t<Filter name = \"status\" value = \"KNOWN\"/>", file = fileout,
     # sep = "\n", append = T)
-# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", file = fileout,
-    # sep = "\n", append = T)
+# cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>", 
+    # file = fileout, sep = "\n", append = T)
 if (myrefid == "homo_sapiens") {
     cat("\t\t<Filter name = \"biotype\" value = \"processed_transcript,",
-        "protein_coding\"/>\n", file = fileout, append = T)
+        "protein_coding\"/>\n", file = fileout, sep="", append = T)
     cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", file = fileout,
         sep = "\n", append = T)
 } else {
@@ -211,7 +204,7 @@ cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
 
 ###############################################################################
-## paralogs file (if it exists)
+####                     paralogs file (if it exists)                      ####
 ###############################################################################
 
 if (myrefid == "homo_sapiens") {
@@ -221,19 +214,20 @@ if (myrefid == "homo_sapiens") {
     cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
     cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" ",
         "header = \"0\" uniqueRows = \"0\" count = \"\" ",
-        "datasetConfigVersion = \"0.6\" >\n", file = fileout, append = T)
+        "datasetConfigVersion = \"0.6\">\n", 
+        file = fileout, sep="", append = T)
     cat("", file = fileout, sep = "\n", append = T)
-    cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
-              sep = ""), file = fileout, sep = "\n", append = T)
+    cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"",
+              "default\" >", sep = ""), file = fileout, sep = "\n", append = T)
     # cat("\t\t<Filter name = \"status\" value = \"KNOWN\"/>", file = fileout,
         # sep = "\n", append = T)
     # cat("\t\t<Filter name = \"transcript_status\" value = \"KNOWN\"/>",
         # file = fileout, sep = "\n", append = T)
     if (myrefid == "homo_sapiens") {
         cat("\t\t<Filter name = \"biotype\" value = \"processed_transcript,",
-            "protein_coding\"/>", file = fileout, sep = "\n", append = T)
-        cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", file = fileout,
-            sep = "\n", append = T)
+            "protein_coding\"/>\n", file = fileout, sep = "", append = T)
+        cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>", 
+            file = fileout, sep = "\n", append = T)
     } else {
         cat("\t\t<Filter name = \"biotype\" value = \"protein_coding\"/>",
             file = fileout, sep = "\n", append = T)
@@ -249,15 +243,15 @@ if (myrefid == "homo_sapiens") {
 }
 
 ###############################################################################
-##  transcripts (eric the simulator)
+####                    transcripts (eric the simulator)                   ####
 ###############################################################################
 
 fileout <- file.path(tmpfolder, "transcripts.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header = ",
-    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n",
-    file = fileout, sep = "\n", append = T)
+    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
           sep = ""), file = fileout, sep = "\n", append = T)
@@ -271,7 +265,7 @@ if (myrefid == "homo_sapiens") {
     cat("\t\t<Filter name = \"with_hgnc\" excluded = \"0\"/>",
         file = fileout, sep = "\n", append = T)
 } else {
-    cat("\t\t<Filter name = \"biotype\" value = \"protein_coding\"/>", \
+    cat("\t\t<Filter name = \"biotype\" value = \"protein_coding\"/>",
         file = fileout, sep = "\n", append = T)
 } 
 #### start attributes
@@ -285,7 +279,8 @@ cat("\t\t<Attribute name = \"exon_chrom_end\" />", file = fileout,
     sep = "\n", append = T)
 cat("\t\t<Attribute name = \"chromosome_name\" />", file = fileout,
     sep = "\n", append = T)
-cat("\t\t<Attribute name = \"strand\" />", file = fileout, sep = "\n", append = T)
+cat("\t\t<Attribute name = \"strand\" />", file = fileout,
+    sep = "\n", append = T)
 #### end attributes
 cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
@@ -298,8 +293,8 @@ fileout <- file.path(tmpfolder, "transcripts_cdna.xml")
 cat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", file = fileout, sep = "\n")
 cat("<!DOCTYPE Query>", file = fileout, sep = "\n", append = T)
 cat("<Query  virtualSchemaName = \"default\" formatter = \"TSV\" header = ",
-    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\" >\n",
-    file = fileout, append = T)
+    "\"0\" uniqueRows = \"0\" count = \"\" datasetConfigVersion = \"0.6\"",
+    ">\n", file = fileout, sep="", append = T)
 cat("", file = fileout, sep = "\n", append = T)
 cat(paste("\t<Dataset name = \"", myrefid.xml,"\" interface = \"default\" >",
           sep = ""), file = fileout, sep = "\n", append = T)
@@ -326,62 +321,146 @@ cat("\t</Dataset>", file = fileout, sep = "\n", append = T)
 cat("</Query>", file = fileout, sep = "\n", append = T)
 
 ###############################################################################
+####                           set PATH location                           ####
+###############################################################################
+
+if (ensversion == 70) {
+    path = "http://jan2013.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 71) {
+    path = "http://apr2013.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 72) {
+    path = "http://jun2013.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 73) {
+    path = "http://sep2013.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 74) {
+    path = "http://dec2013.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 75) {
+    path = "http://feb2014.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 76) {
+    path = "http://aug2014.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 77) {
+    path = "http://oct2014.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 78) {
+    path = "http://dec2014.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 79) {
+    path = "http://mar2015.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 80) {
+    path = "http://may2015.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 81) {
+    path = "http://jul2015.archive.ensembl.org/biomart/martservice?query="
+} else if (ensversion == 82) {
+    path = "http://sep2015.archive.ensembl.org/biomart/martservice?query="
+} else {
+    path <- 'http://www.ensembl.org/biomart/martservice?query='
+}
+
+###############################################################################
 ####                          download gene data                           ####
 ###############################################################################
 
 cat("\nDownloading files...\n")
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "genepos.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "genepos.txt")))
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "geneinfo.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "geneinfo.txt")))
-cat("\nDownloading exonstartend.txt file\n")
-cat(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "exonstartend.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "exonstartend.txt")))
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "exonstartend.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "exonstartend.txt")))
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "strand.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "strand.txt")))
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "transcripts.xml"),
-             ensversion, "| sort -u - >",
-             file.path(tmpfolder, "transcripts.txt")))
-system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                               "retrievefrombiomart.pl"),
-             file.path(tmpfolder, "transcripts_cdna.xml"),
-             ensversion, ">",
-             file.path(tmpfolder, "transcripts.fa")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "genepos.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "genepos.txt"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "genepos.xml"),
+             # ensversion, "| sort -u - >",
+             # file.path(tmpfolder, "genepos.txt")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "geneinfo.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "geneinfo.txt"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "geneinfo.xml"),
+             # ensversion, "| sort -u - >",
+             # file.path(tmpfolder, "geneinfo.txt")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "exonstartend.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "exonstartend.txt"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "exonstartend.xml"),
+             # ensversion, "| sort -u - >",
+             # file.path(tmpfolder, "exonstartend.txt")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "strand.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "strand.txt"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "strand.xml"),
+             # ensversion, "| sort -u - >",
+             # file.path(tmpfolder, "strand.txt")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "transcripts.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "transcripts.txt"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "transcripts.xml"),
+             # ensversion, "| sort -u - >",
+             # file.path(tmpfolder, "transcripts.txt")))
+
+xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                  file.path(tmpfolder, "transcripts_cdna.xml"),
+                                  sep=""),
+                            intern=TRUE)
+system(paste("wget  -O ", file.path(tmpfolder, "transcripts.fa"), " '", 
+             path, xml.stripnewlines, "'", sep=""))
+
+# system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                               # "retrievefrombiomart.pl"),
+             # file.path(tmpfolder, "transcripts_cdna.xml"),
+             # ensversion, ">",
+             # file.path(tmpfolder, "transcripts.fa")))
 if (myrefid == "homo_sapiens") {
-    system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
-                                   "retrievefrombiomart.pl"),
-                 file.path(tmpfolder, "paralogs.xml"),
-                 ensversion, "| sort -u - >",
-                 file.path(tmpfolder, "paralogs.txt")))
+    xml.stripnewlines <- system(paste('tr -d "\\n\\r" < ', 
+                                      file.path(tmpfolder, "paralogs.xml"),
+                                      sep=""),
+                                intern=TRUE)
+    system(paste("wget  -O ", file.path(tmpfolder, "paralogs.fa"), " '", 
+                 path, xml.stripnewlines, "'", sep=""))
+    # system(paste("perl", file.path(ericscriptfolder, "lib", "perl",
+                                   # "retrievefrombiomart.pl"),
+                 # file.path(tmpfolder, "paralogs.xml"),
+                 # ensversion, "| sort -u - >",
+                 # file.path(tmpfolder, "paralogs.txt")))
     acc.chrs <- c(1:22, "X", "Y")
     cat (acc.chrs, file = file.path(tmpfolder, "chrlist"), sep = "\n")
 }
-## download seq data
+###############################################################################
+####                          download seq data                            ####
+###############################################################################
 #download.file(file.path("ftp://ftp.ensembl.org/pub",
 #                        paste("release-", ensversion, sep = ""),
-#                        "fasta", myrefid, "dna", myrefid.path),
+#                              "fasta", myrefid, "dna", myrefid.path),
 #              destfile = file.path(tmpfolder, "seq.fa.gz"), quiet = T)
 
 download.file(file.path("ftp://ftp.ensembl.org/pub", 
                         paste("release-", ensversion, sep = ""),
-                        "fasta", myrefid.path),
+                              "fasta", myrefid.path),
               destfile = file.path(tmpfolder, "seq.fa.gz"), quiet = T)
