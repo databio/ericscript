@@ -8,7 +8,7 @@ tmpfolder <- split.vars[4]
 
 xx <- read.delim(file.path(tmpfolder, "genepos.txt"), sep = "\t", header = F)
 chrs <- as.character(xx[[2]])
-unique.chrs <- unique(chrs)
+unique.chrs <- unique(chrs[chrs != ""])
 geneid <- as.character(xx[[1]])
 genepos <- as.numeric(as.character(xx[[3]]))
 xx.strand <- read.delim(file.path(tmpfolder, "strand.txt"), sep = "\t", header = F)
