@@ -71,7 +71,7 @@ names(EnsemblGene.GeneInfo) <- c("EnsemblGene", "GeneName", "Description")
 save(EnsemblGene.GeneInfo, file = file.path(dbfolder, "data", refid, "EnsemblGene.GeneInfo.RData"))
 
 if (refid == "homo_sapiens") {
-xx <- read.delim(file.path(tmpfolder, "paralogs.txt"), sep = "\t", header = F)
+xx <- read.delim(file.path(tmpfolder, "paralogs.fa"), sep = "\t", header = F)
 EnsemblGene.Paralogs <- xx
 names(EnsemblGene.Paralogs) <- c("EnsemblGene", "Paralogs")
 save(EnsemblGene.Paralogs, file = file.path(dbfolder, "data", refid, "EnsemblGene.Paralogs.RData"))
