@@ -30,11 +30,13 @@ formatfasta <- function(myfasta, step = 50) {
 }
 
 
-load(file.path(outputfolder,"out", paste(samplename,".chimeric.RData", sep = "")))
+load(file.path(outputfolder,"out", 
+               paste(samplename,".chimeric.RData", sep = "")))
 load(file.path(dbfolder, "data", refid, "EnsemblGene.GeneNames.RData"))
 load(file.path(dbfolder, "data", refid, "EnsemblGene.Sequences.RData"))
 load(file.path(dbfolder, "data", refid, "EnsemblGene.Structures.RData"))
-load(file.path(outputfolder, "out", paste(samplename,".chimeric.RData", sep = "")))
+load(file.path(outputfolder, "out",
+               paste(samplename,".chimeric.RData", sep = "")))
 id1 <- MyGF$id1
 id2 <- MyGF$id2
 junctions <- rep(NA, length(id1))
@@ -52,8 +54,14 @@ for (i in 1: length(id1)) {
 	if (min.pos1 < 1) {min.pos1 <- 1}
 	min.pos2 <- min(MyGF$pos2[[i]])
 	max.pos2 <- max(MyGF$pos2[[i]]) + 2*readlength
-	a <- as.numeric(unlist(strsplit(as.character(EnsemblGene.Structures$exonStart[ix.genetable1]), ",")))
-	b <- as.numeric(unlist(strsplit(as.character(EnsemblGene.Structures$exonEnd[ix.genetable1]), ",")))
+	a <- as.numeric(
+         unlist(
+         strsplit(
+         as.character(EnsemblGene.Structures$exonStart[ix.genetable1]), ",")))
+	b <- as.numeric(
+         unlist(
+         strsplit(
+         as.character(EnsemblGene.Structures$exonEnd[ix.genetable1]), ",")))
 	strand1 <- as.character(EnsemblGene.Structures$Strand[ix.genetable1])
 	if (strand1 == "+") {
 		tmp.sum1 <- cumsum((b - a ))
@@ -62,8 +70,14 @@ for (i in 1: length(id1)) {
 	}
 	exonenumber1 <- which(tmp.sum1 >= max.pos1)[1]
 	if (is.na(exonenumber1)) {exonenumber1 <- length(tmp.sum1)}
-	a2 <- as.numeric(unlist(strsplit(as.character(EnsemblGene.Structures$exonStart[ix.genetable2]), ",")))
-	b2 <- as.numeric(unlist(strsplit(as.character(EnsemblGene.Structures$exonEnd[ix.genetable2]), ",")))
+	a2 <- as.numeric(
+          unlist(
+          strsplit(
+          as.character(EnsemblGene.Structures$exonStart[ix.genetable2]), ",")))
+	b2 <- as.numeric(
+          unlist(
+          strsplit(
+          as.character(EnsemblGene.Structures$exonEnd[ix.genetable2]), ",")))
 	strand2 <- as.character(EnsemblGene.Structures$Strand[ix.genetable2])
 	if (strand2 == "+") {
 		tmp.sum2 <- cumsum((b2 - a2))
@@ -81,7 +95,8 @@ for (i in 1: length(id1)) {
 	if (max.pos2 > nchar(fasta.gf2.tmp0)) {max.pos2 <- nchar(fasta.gf2.tmp0)}
 	start.end.exons <- c(0,tmp.sum2)
 	fasta.gf2 <- substr(fasta.gf2.tmp0, (min.pos2 - maxgap), max.pos2)
-	id.fastaGF <- paste(">",id.gf1,"----",id.gf2," junction@",nchar(fasta.gf1),sep = "")
+	id.fastaGF <- paste(">",id.gf1,"----",id.gf2," junction@",
+                        nchar(fasta.gf1),sep = "")
 	sequences.fasta[i] <- paste(fasta.gf1, fasta.gf2, sep = "")
 	fasta.gf12 <- formatfasta(sequences.fasta[i])
 	ids_fasta[i] <- paste(id.gf1,id.gf2, sep = "----")
@@ -89,13 +104,16 @@ for (i in 1: length(id1)) {
 	fastaGF <- c(id.fastaGF, fasta.gf12)
 	fasta.file <- c(fasta.file, fastaGF)
 }
-save(junctions, file = file.path(outputfolder, "out", paste(samplename,".junctions.RData", sep = "")))
-save(sequences.fasta, file = file.path(outputfolder, "out", paste(samplename,".sequences_fasta.RData", sep = "")))
-save(ids_fasta, file = file.path(outputfolder, "out",  paste(samplename, ".ids_fasta.RData", sep = "")))
-cat(fasta.file, file = file.path(outputfolder,"out", paste(samplename,".EricScript.junctions.fa",sep = "")), sep = "\n")
-
-
-
-
-
-
+save(junctions, 
+     file = file.path(outputfolder, "out",
+                      paste(samplename,".junctions.RData", sep = "")))
+save(sequences.fasta, 
+     file = file.path(outputfolder, "out",
+                      paste(samplename,".sequences_fasta.RData", sep = "")))
+save(ids_fasta,
+     file = file.path(outputfolder, "out",
+                      paste(samplename, ".ids_fasta.RData", sep = "")))
+cat(fasta.file,
+    file = file.path(outputfolder,"out",
+                     paste(samplename,".EricScript.junctions.fa",sep = "")),
+    sep = "\n")
