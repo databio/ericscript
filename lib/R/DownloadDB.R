@@ -1,9 +1,9 @@
-vars.tmp <- commandArgs()
-vars <- vars.tmp[length(vars.tmp)]
+vars.tmp   <- commandArgs()
+vars       <- vars.tmp[length(vars.tmp)]
 split.vars <- unlist(strsplit(vars, ","))
 ericscriptfolder <- split.vars [1]
 user.refid <- split.vars [2]
-tmpfolder <- split.vars [3]
+tmpfolder  <- split.vars [3]
 ensversion <- as.numeric(split.vars [4])
 
 ###############################################################################
@@ -18,7 +18,7 @@ if (length(ix.refid) == 0) {
     quit( save = "no")
 }
 cat(1, file = file.path(tmpfolder, ".refid.flag"))
-myrefid <- refid[ix.refid]
+myrefid      <- refid[ix.refid]
 myrefid.path <- refid.path[ix.refid]
 
 if (ensversion == 0) {
